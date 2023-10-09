@@ -6,13 +6,13 @@ This pipeline will bump the version in package.json, create a new tag version, u
 ## parameters
 
 ```sh
-  secret_input:
-     description: "github secret"
-     required: true
+   secret_input:
+    description: "github secret"
+    required: true
   webhook_url:
-     description: "webook url"
-     required: false
-     default: 'none'
+    description: "webook url"
+    required: false
+    default: 'none'
   publish_type:
     description: 'publish type, allowed values: library, services, none'
     required: false
@@ -21,19 +21,21 @@ This pipeline will bump the version in package.json, create a new tag version, u
     description: "full accesss auth token"
     required: false
   release_as:
-    description: 'bump type, patch, minor, major'
+    description: 'bump type, patch, minor, major on current branch'
     required: true
     default: 'patch'
   push_to:
     description: "push to new branch after releasing, allowed values: (same as repos branches)"
     required: false
-    default: ''
+    default: 'none'
   pre_action:
     description: "pre actions, allowed values: checkout"
     default: 'checkout'
+    required: false
   should_build:
     description: "npm run build automatically to generate dist"
     default: 'false'
+    required: false
 ```
 
 ## usage example

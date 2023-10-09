@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       release_as:
-        description: 'bump version kind'
+        description: 'bump version kind on current branch'
         required: true
         default: 'patch'
         type: choice
@@ -36,6 +36,7 @@ on:
         options:
         - none
         - main
+        - develop
 
 jobs:
   release:
