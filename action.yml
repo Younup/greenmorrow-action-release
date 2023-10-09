@@ -46,9 +46,10 @@ runs:
       with:
         registry-url: 'https://npm.pkg.github.com'
         node-version: '16'
-        uses: jgierer12/npm-auth-gpr@v1
-        with:
-          token: ${{ inputs.gh_pat }}
+    - name: npm auth
+      uses: jgierer12/npm-auth-gpr@v1
+      with:
+        token: ${{ inputs.gh_pat }}
     - name: git authentication
       shell: bash
       run: |
