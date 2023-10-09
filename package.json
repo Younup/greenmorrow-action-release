@@ -1,7 +1,13 @@
 {
 	"name": "@younup/greenmorrow-action-release",
-	"version": "0.0.3",
-	"repository": "git@github.com:Younup/greenmorrow-action-release.git",
+	"version": "0.0.2",
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/Younup/greenmorrow-action-release.git"
+  },
+	"publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
 	"author": "Younup",
 	"scripts": {
 		"prepare": "husky install",
