@@ -69,7 +69,7 @@ runs:
       shell: bash
       run: npm publish
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.GH_PAT }}
+        NODE_AUTH_TOKEN: ${{ inputs.GH_PAT }}
     - name: webhook
       if: ${{ inputs.webhook_url != 'none' }}
       uses: zzzze/webhook-trigger@master
