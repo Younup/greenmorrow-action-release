@@ -1,5 +1,5 @@
 {
-	"name": "@younup/greenmorrow-action-release",
+	"name": "greenmorrow-action-release",
 	"version": "0.0.7",
 	"repository": {
 		"type": "git",
