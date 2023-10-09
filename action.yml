@@ -73,14 +73,13 @@ runs:
       if: ${{ inputs.publish_type == 'library' }}
       shell: bash
       run: npm publish
-    - name: webhook
-      if: ${{ inputs.webhook_url != 'none' }}
-      uses: zzzze/webhook-trigger@master
-      with:
-        webhook_url: ${{ inputs.webhook_url }}
-        options: "-H \"Accept: application/vnd.github.everest-preview+json\" -H \"Authorization: token ${{ inputs.gh_pat }}\""
     - name: push to branch chosen
       if: ${{ inputs.push_to != 'none' }}
       uses: ad-m/github-push-action@master
       with:
         branch: ${{ inputs.push_to }}
+    - name: webhook
+      if: ${{ inputs.webhook_url != 'none' }}
+      uses: muinmomin/webhook-action@v1.0.0
+      with:
+       url: ${{ inputs.webhook_url }}
