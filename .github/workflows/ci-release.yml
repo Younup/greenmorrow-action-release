@@ -50,7 +50,7 @@ jobs:
           push_to: ${{ inputs.push_to }}
           webhook_url: 'none'
           should_build: 'false'
-          publish_type: 'service'
+          publish_type: 'library'
           secret_input: "${{ secrets.GITHUB_TOKEN }}"
           gh_pat: "${{ secrets.GH_PAT }}"
 
