@@ -46,7 +46,9 @@ runs:
       with:
         registry-url: 'https://npm.pkg.github.com'
         node-version: '16'
-        scope: '@younup'
+        uses: jgierer12/npm-auth-gpr@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
     - name: git authentication
       shell: bash
       run: |
@@ -69,8 +71,8 @@ runs:
       if: ${{ inputs.publish_type == 'library' }}
       shell: bash
       run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ inputs.gh_pat }}
+      # env:
+      #   NODE_AUTH_TOKEN: ${{ inputs.gh_pat }}
     - name: webhook
       if: ${{ inputs.webhook_url != 'none' }}
       uses: zzzze/webhook-trigger@master
