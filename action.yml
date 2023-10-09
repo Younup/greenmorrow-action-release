@@ -23,7 +23,7 @@ inputs:
   push_to:
     description: "push to new branch after releasing, allowed values: (same as repos branches)"
     required: false
-    default: ''
+    default: 'none'
   pre_action:
     description: "pre actions, allowed values: checkout"
     default: 'checkout'
@@ -82,8 +82,8 @@ runs:
         webhook_url: ${{ inputs.webhook_url }}
         options: "-H \"Accept: application/vnd.github.everest-preview+json\" -H \"Authorization: token ${{ inputs.gh_pat }}\""
 
-    # todo : needs second env to push to :
-    # - if: ${{ inputs.push_to == 'staging' }}
-    #   uses: ad-m/github-push-action@master
-    #   with:
-    #     branch: ${{ inputs.push_to }}
+    - name: push to branch chosen
+      if: ${{ inputs.push_to != 'none' }}
+      uses: ad-m/github-push-action@master
+      with:
+        branch: ${{ inputs.push_to }}

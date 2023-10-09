@@ -29,13 +29,13 @@ on:
         - major
 
       push_to:
-        description: 'branch to push to'
+        description: 'branch to push to as well as develop'
         required: true
-        default: 'main'
+        default: 'none'
         type: choice
         options:
+        - none
         - main
-        - develop
 
 jobs:
   release:
