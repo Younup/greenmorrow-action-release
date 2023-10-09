@@ -46,10 +46,7 @@ runs:
       with:
         registry-url: 'https://npm.pkg.github.com'
         node-version: '16'
-    - name: npm auth
-      uses: jgierer12/npm-auth-gpr@v1
-      with:
-        token: ${{ inputs.gh_pat }}
+
     - name: git authentication
       shell: bash
       run: |
@@ -68,6 +65,10 @@ runs:
       if: ${{ inputs.should_build == 'true' }}
       shell: bash
       run: npm run build
+    - name: npm auth
+      uses: jgierer12/npm-auth-gpr@v1
+      with:
+        token: ${{ inputs.secret_input }}
     - name: publish version
       if: ${{ inputs.publish_type == 'library' }}
       shell: bash
