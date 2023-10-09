@@ -1,0 +1,103 @@
+### CUSTOM ###
+
+# IGNORE ARTIFACTS:
+build
+coverage
+target
+**/.eslintcache
+**/coverage
+out
+**/.turbo
+*.pem
+
+dist
+node_modules/
+coverage/
+lerna-debug.log
+
+### MACOS ###
+# GENERAL
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+**/*.tgz
+
+# THUMBNAILS
+._*
+
+# FILES THAT MIGHT APPEAR IN THE ROOT OF A VOLUME
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# DIRECTORIES POTENTIALLY CREATED ON REMOTE AFP SHARE
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### VISUALSTUDIOCODE ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+### VISUALSTUDIOCODE PATCH ###
+# IGNORE ALL LOCAL HISTORY OF FILES
+.history
+
+# END OF HTTPS://WWW.TOPTAL.COM/DEVELOPERS/GITIGNORE/API/VISUALSTUDIOCODE,MACOS
+
+# CUSTOM RULES (EVERYTHING ADDED BELOW WON'T BE OVERRIDEN BY 'GENERATE .GITIGNORE FILE' IF YOU USE 'UPDATE' OPTION)
+
+**/node_modules
+**/dist
+# DOCKER
+
+# OS
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+.DS_Store
+
+# DATABASE
+database/*
+!database/.gitkeep
+
+#lib
+dump.rdb
+.idea
+.eslintcache
+
+# CAPACITOR
+**/ios
+**/android
+.env*
+!.env.project
+!.env.vault
+
+**/documentation
+.flaskenv*

@@ -1,0 +1,84 @@
+name: ci-release
+description: custom ci release action
+
+inputs:
+  secret_input:
+    description: "github secret"
+    required: true
+  webhook_url:
+    description: "webook url"
+    required: false
+    default: 'none'
+  publish_type:
+    description: 'publish type, allowed values: library, services, none'
+    required: false
+    default: 'none'
+  gh_pat:
+    description: "full accesss auth token"
+    required: false
+  release_as:
+    description: 'bump type, patch, minor, major'
+    required: true
+    default: 'patch'
+  push_to:
+    description: "push to new branch after releasing, allowed values: (same as repos branches)"
+    required: false
+    default: ''
+  pre_action:
+    description: "pre actions, allowed values: checkout"
+    default: 'checkout'
+    required: false
+  should_build:
+    description: "npm run build automatically to generate dist"
+    default: 'false'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: checkout repo
+      if: ${{ inputs.pre_action == 'checkout' }}
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: setup node
+      uses: actions/setup-node@v3
+      with:
+        registry-url: 'https://npm.pkg.github.com'
+        node-version: '16'
+    - name: git authentication
+      shell: bash
+      run: |
+          git config --global user.email "release@release.com"
+          git config --global user.name "Release CI"
+    - name: install dependencies
+      run: npm install
+      shell: bash
+    - name: bump version, tag and create changelog
+      shell: bash
+      run: npx standard-version --release-as ${{ inputs.release_as }}
+    - name: push changes
+      shell: bash
+      run: git push --follow-tags
+    - name: build dependencies
+      if: ${{ inputs.should_build == 'true' }}
+      shell: bash
+      run: npm run build
+    - name: publish version
+      if: ${{ inputs.publish_type == 'library' }}
+      shell: bash
+      run: npm publish
+      env:
+        GH_PAT: ${{ inputs.gh_pat }}
+    - name: webhook
+      if: ${{ inputs.webhook_url != 'none' }}
+      uses: zzzze/webhook-trigger@master
+      with:
+        webhook_url: ${{ inputs.webhook_url }}
+        options: "-H \"Accept: application/vnd.github.everest-preview+json\" -H \"Authorization: token ${{ secrets.gh_pat }}\""
+
+    # todo : needs second env to push to :
+    # - if: ${{ inputs.push_to == 'staging' }}
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     branch: ${{ inputs.push_to }}
