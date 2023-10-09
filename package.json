@@ -1,11 +1,11 @@
 {
 	"name": "@younup/greenmorrow-action-release",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"repository": "git@github.com:Younup/greenmorrow-action-release.git",
 	"author": "Younup",
 	"scripts": {
 		"prepare": "husky install",
-		"commitlint" : "commitlint -e $GIT_PARAMS"
+		"commitlint": "commitlint -e $GIT_PARAMS"
 	},
 	"dependencies": {
 		"husky": ">=8.0.3"
