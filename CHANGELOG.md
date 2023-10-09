@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.8](https://github.com/Younup/greenmorrow-action-release/compare/v0.0.7...v0.0.8) (2023-10-09)
+
+
+### ✨ feat
+
+* **Release:** release ci fix name ([7dd1edc](https://github.com/Younup/greenmorrow-action-release/commits7dd1edc2309d5b302c67635cf46ab24e3cf23f9e))
+
 ### [0.0.7](https://github.com/Younup/greenmorrow-action-release/compare/v0.0.6...v0.0.7) (2023-10-09)
 
 
