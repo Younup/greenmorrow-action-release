@@ -53,7 +53,7 @@ runs:
           git config --global user.email "release@release.com"
           git config --global user.name "Release CI"
     - name: install dependencies
-      run: npm install
+      run: npm install --legacy-peer-deps
       shell: bash
     - name: bump version, tag and create changelog
       shell: bash

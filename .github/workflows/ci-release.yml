@@ -19,22 +19,22 @@ on:
   workflow_dispatch:
     inputs:
       release_as:
-        description: 'bump version kind on current branch'
+        description: "bump version kind on current branch"
         required: true
-        default: 'patch'
+        default: "patch"
         type: choice
         options:
-        - patch
-        - minor
-        - major
+          - patch
+          - minor
+          - major
 
       push_to:
-        description: 'branch to push to as well as current branch'
+        description: "branch to push to as well as current branch"
         required: true
-        default: 'none'
+        default: "none"
         type: choice
         options:
-        - none
+          - none
 
 jobs:
   release:
@@ -47,9 +47,8 @@ jobs:
         with:
           release_as: ${{ inputs.release_as }}
           push_to: ${{ inputs.push_to }}
-          webhook_url: 'none'
-          should_build: 'false'
-          publish_type: 'library'
+          webhook_url: "none"
+          should_build: "false"
+          publish_type: "library"
           secret_input: "${{ secrets.GITHUB_TOKEN }}"
           gh_pat: "${{ secrets.GH_PAT }}"
-
