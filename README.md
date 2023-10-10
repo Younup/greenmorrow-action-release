@@ -91,7 +91,6 @@ jobs:
               uses: Younup/greenmorrow-action-release@v0.0.1
               with:
                   publish_type: '' # library if library
-                  webhook_url: "${{ secrets.WEBHOOK_URL }}"
                   secret_input: "${{ secrets.GITHUB_TOKEN }}"
                   gh_pat: "${{ secrets.GH_PAT }}"
                   pre_action: "checkout"

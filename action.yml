@@ -5,10 +5,6 @@ inputs:
   secret_input:
     description: "github secret"
     required: true
-  webhook_url:
-    description: "webook url"
-    required: false
-    default: 'none'
   publish_type:
     description: 'publish type, allowed values: library, services, none'
     required: false
@@ -78,8 +74,3 @@ runs:
       uses: ad-m/github-push-action@master
       with:
         branch: ${{ inputs.push_to }}
-    - name: webhook
-      if: ${{ inputs.webhook_url != 'none' }}
-      uses: muinmomin/webhook-action@v1.0.0
-      with:
-       url: ${{ inputs.webhook_url }}
