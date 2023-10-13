@@ -48,7 +48,7 @@ runs:
     - name: publish release tag
       id: publish_tag
       shell: bash
-      run: | 
+      run: |
         git push --follow-tags
         echo tag_name=$(git describe HEAD --abbrev=0) >> $GITHUB_OUTPUT
     - name: create release
@@ -59,7 +59,7 @@ runs:
         release_name: Release ${{ steps.publish_tag.outputs.tag_name}}
         tag_name: ${{ steps.publish_tag.outputs.tag_name }}
         body_path: RELEASE_BODY.md
-    # if should_build = true or publish_type === 'library', install nodejs, project dependancies then build the app.
+    # if should_build = true or publish_type === 'library', install nodejs and project dependancies then build the app or publish it.
     - name: setup node
       if: ${{ inputs.should_build == 'true' || inputs.publish_type == 'library' }}
       uses: actions/setup-node@v3
@@ -67,7 +67,7 @@ runs:
         registry-url: "https://npm.pkg.github.com"
         node-version: "16"
     - name: install dependencies
-      if: ${{ inputs.should_build == 'true' }}
+      if: ${{ inputs.should_build == 'true' || inputs.publish_type == 'library' }}
       run: npm install --legacy-peer-deps
       shell: bash
     - name: build dependencies
@@ -82,7 +82,7 @@ runs:
       if: ${{ inputs.publish_type == 'library' }}
       shell: bash
       run: npm publish
-    - name: push to a chosen branch 
+    - name: push to a chosen branch
       if: ${{ inputs.push_to != 'none' }}
       uses: ad-m/github-push-action@master
       with:
