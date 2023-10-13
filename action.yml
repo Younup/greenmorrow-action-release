@@ -6,27 +6,27 @@ inputs:
     description: "github secret"
     required: true
   publish_type:
-    description: 'publish type, allowed values: library, services, none'
+    description: "publish type, allowed values: library, services, none"
     required: false
-    default: 'none'
+    default: "none"
   gh_pat:
     description: "full accesss auth token"
     required: false
   release_as:
-    description: 'bump type, patch, minor, major on current branch'
+    description: "bump type, patch, minor, major on current branch"
     required: true
-    default: 'patch'
+    default: "patch"
   push_to:
     description: "push to new branch after releasing, allowed values: (same as repos branches)"
     required: false
-    default: 'none'
+    default: "none"
   pre_action:
     description: "pre actions, allowed values: checkout"
-    default: 'checkout'
+    default: "checkout"
     required: false
   should_build:
     description: "npm run build automatically to generate dist"
-    default: 'false'
+    default: "false"
     required: false
 
 runs:
@@ -37,26 +37,39 @@ runs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: setup node
-      uses: actions/setup-node@v3
-      with:
-        registry-url: 'https://npm.pkg.github.com'
-        node-version: '16'
-
     - name: git authentication
       shell: bash
       run: |
-          git config --global user.email "release@release.com"
-          git config --global user.name "Release CI"
+        git config --global user.email "release@release.com"
+        git config --global user.name "Release CI"
+    - name: generate tag and release body
+      shell: bash
+      run: npx standard-version -i RELEASE_BODY.md --release-as ${{ inputs.release_as }} --skip.commit
+    - name: publish release tag
+      id: publish_tag
+      shell: bash
+      run: | 
+        git push --follow-tags
+        echo ::set-output name=tag_name::$(git describe HEAD --abbrev=0)
+    - name: create release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ inputs.secret_input }}
+      with:
+        release_name: Release ${{ steps.publish_tag.outputs.tag_name}}
+        tag_name: ${{ steps.publish_tag.outputs.tag_name }}
+        body_path: RELEASE_BODY.md
+    # if should_build = true, install nodejs, dependancies then build the app.
+    - name: setup node
+      if: ${{ inputs.should_build == 'true' }}
+      uses: actions/setup-node@v3
+      with:
+        registry-url: "https://npm.pkg.github.com"
+        node-version: "16"
     - name: install dependencies
+      if: ${{ inputs.should_build == 'true' }}
       run: npm install --legacy-peer-deps
       shell: bash
-    - name: bump version, tag and create changelog
-      shell: bash
-      run: npx standard-version --release-as ${{ inputs.release_as }}
-    - name: push changes
-      shell: bash
-      run: git push --follow-tags
     - name: build dependencies
       if: ${{ inputs.should_build == 'true' }}
       shell: bash
@@ -69,7 +82,7 @@ runs:
       if: ${{ inputs.publish_type == 'library' }}
       shell: bash
       run: npm publish
-    - name: push to branch chosen
+    - name: push to a chosen branch 
       if: ${{ inputs.push_to != 'none' }}
       uses: ad-m/github-push-action@master
       with:
