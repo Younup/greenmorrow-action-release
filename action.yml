@@ -44,12 +44,11 @@ runs:
         git config --global user.name "Release CI"
     - name: generate tag and release body
       shell: bash
-      run: npx standard-version -i RELEASE_BODY.md --release-as ${{ inputs.release_as }} --skip.commit
+      run: npx standard-version -i RELEASE_BODY.md --release-as ${{ inputs.release_as }}
     - name: publish release tag
       id: publish_tag
       shell: bash
       run: |
-        git push --follow-tags
         echo tag_name=$(git describe HEAD --abbrev=0) >> $GITHUB_OUTPUT
     - name: create release
       uses: actions/create-release@v1
