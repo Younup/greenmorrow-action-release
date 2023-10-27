@@ -1,6 +1,5 @@
 const versionConfig = {
 	bumpFiles: [{ filename: "package.json", type: "json" }],
-	commitAll: true,
 	commitMessageFormat: "chore(release): {{currentTag}}",
 	commitPaths: ["package.json", "package-lock.json"],
 	commitUserEmail: "https://github.com/{{user}}",
