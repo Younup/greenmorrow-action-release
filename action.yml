@@ -68,7 +68,7 @@ runs:
         node-version: "16"
     - name: install dependencies
       if: ${{ inputs.should_build == 'true' || inputs.publish_type == 'library' }}
-      run: npm install --legacy-peer-deps
+      run: npm install
       shell: bash
     - name: build dependencies
       if: ${{ inputs.should_build == 'true' }}
