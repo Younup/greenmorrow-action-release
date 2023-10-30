@@ -52,7 +52,7 @@ runs:
         TAG_NAME=$(git describe HEAD --abbrev=0)
         echo tag_name=$TAG_NAME >> $GITHUB_OUTPUT
         git add package.json
-        git commit -m "chore: release v$TAG_NAME"
+        git commit -m "chore: release $TAG_NAME"
         git push --follow-tags
     - name: create release
       uses: actions/create-release@v1
