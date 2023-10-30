@@ -53,7 +53,7 @@ runs:
         echo tag_name=$TAG_NAME >> $GITHUB_OUTPUT
         git add package.json
         git commit -m "chore: release $TAG_NAME"
-        git tag -f $TAG_NAME
+        git tag -f $TAG_NAME -m "chore: release $TAG_NAME"
         git push --follow-tags
     - name: create release
       uses: actions/create-release@v1
