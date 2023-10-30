@@ -48,6 +48,6 @@ jobs:
           release_as: ${{ inputs.release_as }}
           push_to: ${{ inputs.push_to }}
           should_build: "false"
-          publish_type: "library"
+          publish_type: "module"
           secret_input: "${{ secrets.GITHUB_TOKEN }}"
           gh_pat: "${{ secrets.GH_PAT }}"
