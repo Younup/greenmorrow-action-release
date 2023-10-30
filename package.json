@@ -10,7 +10,7 @@
 	},
 	"scripts": {
 		"prepare": "husky install",
-		"commitlint": "commitlint -e $GIT_PARAMS"
+		"commitlint": "commitlint --edit"
 	},
 	"dependencies": {
 		"husky": ">=8.0.3"
